@@ -18,7 +18,7 @@ const Email: React.FC = () => {
                           setShowSendMessageModal={setShowSendMessageModal}/>
             <EmailEmailsList/>
             <EmailMessage/>
-            {showSendMessageModal ? <EmailSendMessageModal/> : <></>}
+            {showSendMessageModal ? <EmailSendMessageModal setShowSendMessageModal={setShowSendMessageModal}/> : <></>}
         </div>
     );
 };
