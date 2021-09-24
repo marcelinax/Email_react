@@ -5,11 +5,14 @@ import {logoutUser} from "../state/userSlice";
 interface Props {
     avatarUrl: string;
     email: string;
+    setShowSendMessageModal: (param: boolean) => void;
+
 }
 
-const EmailSidebar: React.FC<Props> = ({email, avatarUrl}) => {
+const EmailSidebar: React.FC<Props> = ({email, avatarUrl, setShowSendMessageModal}) => {
 
     const dispatch = useDispatch();
+
 
     return (
         <div className={'email-sidebar'}>
@@ -27,7 +30,7 @@ const EmailSidebar: React.FC<Props> = ({email, avatarUrl}) => {
                         <p>12</p>
                     </div>
                 </button>
-                <button>
+                <button onClick={() => setShowSendMessageModal(true)}>
                     <i className="bx bx-pencil"/>
                     <p>New message</p>
                 </button>
