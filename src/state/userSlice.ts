@@ -37,9 +37,12 @@ export const usersSlice = createSlice({
                 saveUsersInLocalStorage(state.users);
             }
 
+        },
+        logoutUser: (state) => {
+            state.loggedUser = null;
         }
     }
 });
 
-export const {loginUser} = usersSlice.actions;
+export const {loginUser, logoutUser} = usersSlice.actions;
 export default usersSlice.reducer;

@@ -1,4 +1,6 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+import {logoutUser} from "../state/userSlice";
 
 interface Props {
     avatarUrl: string;
@@ -6,6 +8,9 @@ interface Props {
 }
 
 const EmailSidebar: React.FC<Props> = ({email, avatarUrl}) => {
+
+    const dispatch = useDispatch();
+
     return (
         <div className={'email-sidebar'}>
             <div className={'email-sidebar-user-box'}>
@@ -33,7 +38,7 @@ const EmailSidebar: React.FC<Props> = ({email, avatarUrl}) => {
 
             </div>
             <div className={'email-sidebar-logout-box'}>
-                <button><i className="bx bx-power-off"/>
+                <button onClick={() => dispatch(logoutUser())}><i className="bx bx-power-off"/>
                     <p>Logout</p>
                 </button>
             </div>
