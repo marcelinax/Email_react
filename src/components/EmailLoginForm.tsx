@@ -1,9 +1,12 @@
 import React, {ChangeEvent, useState} from 'react';
+import {useDispatch} from "react-redux";
+import {loginUser} from "../state/userSlice";
 
 const EmailLoginForm: React.FC = () => {
 
     const [email, setEmail] = useState<string>('');
     const [avatarUrl, setAvatarUrl] = useState<string>('');
+    const dispatch = useDispatch();
 
     const handleEmailInput = (e: ChangeEvent<HTMLInputElement>): void => {
         setEmail(e.target.value);
@@ -21,7 +24,10 @@ const EmailLoginForm: React.FC = () => {
                     <input placeholder={'E-mail'} value={email} onChange={handleEmailInput}/>
                     <input placeholder={'Avatar url'} value={avatarUrl} onChange={handleAvatarUrlInput}/>
                 </div>
-                <button>LOGIN</button>
+                <button onClick={() => {
+                    dispatch(loginUser({email, avatarUrl}));
+                }}>LOGIN
+                </button>
             </div>
         </div>
     );
