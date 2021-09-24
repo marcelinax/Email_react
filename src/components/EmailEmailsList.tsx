@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {setCurrentEmail} from "../state/emailsSlice";
 import {RootState} from "../store";
 import Email from "../types/Email";
 import EmailEmailsListItem from "./EmailEmailsListItem";
@@ -9,6 +10,7 @@ const EmailEmailsList: React.FC = () => {
     const [search, setSearch] = useState<string>('');
     const emails = useSelector((state: RootState) => state.emails.emails);
     const users = useSelector((state: RootState) => state.users.users);
+    const dispatch = useDispatch();
 
     const loggedUser = useSelector((state: RootState) => state.users.loggedUser);
 
@@ -28,7 +30,8 @@ const EmailEmailsList: React.FC = () => {
         return getLoggedUserEmails().length > 0 ? getLoggedUserEmails().map(email => (
             <EmailEmailsListItem senderEmail={email.senderEmail}
                                  content={email.content} title={email.title}
-                                 avatarUrl={users.filter(user => user.email === email.senderEmail)[0].avatarUrl}/>
+                                 avatarUrl={users.filter(user => user.email === email.senderEmail)[0].avatarUrl}
+                                 onClick={() => dispatch(setCurrentEmail(email))}/>
         )) : <></>;
     };
 

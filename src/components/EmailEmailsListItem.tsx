@@ -2,15 +2,15 @@ import React from 'react';
 
 interface Props {
     senderEmail: string;
-
     title: string;
     content: string;
     avatarUrl: string;
+    onClick: () => void;
 }
 
-const EmailEmailsListItem: React.FC<Props> = ({senderEmail, content, title, avatarUrl}) => {
+const EmailEmailsListItem: React.FC<Props> = ({senderEmail, content, title, avatarUrl, onClick}) => {
     return (
-        <div className={'email-emails-list-item'}>
+        <div className={'email-emails-list-item'} onClick={onClick}>
             <div className={'email-emails-list-item-user-avatar'}
                  style={{backgroundImage: `url(${avatarUrl})`}}/>
             <div className={'email-emails-list-item-info-box'}>

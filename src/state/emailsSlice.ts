@@ -27,14 +27,15 @@ export const emailsSlice = createSlice({
     initialState: initialState,
     reducers: {
         sendEmailMessage: (state, action: PayloadAction<Email>) => {
-            const {recipientEmail} = action.payload;
-
             state.emails = [...state.emails, action.payload];
             saveEmailsInLocalStorage(state.emails);
 
 
+        },
+        setCurrentEmail: (state, action: PayloadAction<Email>) => {
+            state.currentEmail = action.payload;
         }
     }
 });
-export const {sendEmailMessage} = emailsSlice.actions;
+export const {sendEmailMessage, setCurrentEmail} = emailsSlice.actions;
 export default emailsSlice.reducer;
