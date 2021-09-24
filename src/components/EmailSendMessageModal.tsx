@@ -14,7 +14,8 @@ const EmailSendMessageModal: React.FC<Props> = ({setShowSendMessageModal}) => {
     const [content, setContent] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
     const loggedUser = useSelector((state: RootState) => state.users.loggedUser);
-    const emailError = useSelector((state: RootState) => state.emails.emailError);
+    const users = useSelector((state: RootState) => state.users.users);
+
     const dispatch = useDispatch();
 
 
@@ -23,8 +24,8 @@ const EmailSendMessageModal: React.FC<Props> = ({setShowSendMessageModal}) => {
             setErrorMessage(`Enter a recipient's email!`);
             return;
         }
-        if (emailError !== '') {
-            setErrorMessage(emailError);
+        if (!users.map(user => user.email).includes(recipientEmail)) {
+            setErrorMessage(`This email doesn't exist.`);
             return;
         } else {
             dispatch(sendEmailMessage({
@@ -33,8 +34,10 @@ const EmailSendMessageModal: React.FC<Props> = ({setShowSendMessageModal}) => {
                 content,
                 title
             }));
+            setShowSendMessageModal(false);
         }
-      
+        setErrorMessage('');
+
 
     };
 

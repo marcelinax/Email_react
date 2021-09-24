@@ -31,7 +31,9 @@ const EmailSidebar: React.FC<Props> = ({email, avatarUrl, setShowSendMessageModa
                         <p>12</p>
                     </div>
                 </button>
-                <button onClick={() => setShowSendMessageModal(true)}>
+                <button onClick={() => {
+                    setShowSendMessageModal(true);
+                }}>
                     <i className="bx bx-pencil"/>
                     <p>New message</p>
                 </button>

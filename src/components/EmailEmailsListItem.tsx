@@ -1,23 +1,27 @@
 import React from 'react';
 
-const EmailEmailsListItem: React.FC = () => {
+interface Props {
+    senderEmail: string;
+
+    title: string;
+    content: string;
+    avatarUrl: string;
+}
+
+const EmailEmailsListItem: React.FC<Props> = ({senderEmail, content, title, avatarUrl}) => {
     return (
         <div className={'email-emails-list-item'}>
             <div className={'email-emails-list-item-user-avatar'}
-                 style={{backgroundImage: `url(https://st.depositphotos.com/1011382/2845/i/950/depositphotos_28451549-stock-photo-real-normal-person-portrait.jpg)`}}/>
+                 style={{backgroundImage: `url(${avatarUrl})`}}/>
             <div className={'email-emails-list-item-info-box'}>
                 <div className={'time-box'}>
                     <i className="bx bx-time-five"/>
                     <p>5min</p>
                 </div>
-                <h4>Charlie.Davis@gmail.com</h4>
+                <h4>{senderEmail}</h4>
 
-                <p className={'title'}>Need an existenital reaston for</p>
-                <p className={'content'}>Użytkownik klika plusik (w menu po lewej) wyskakuje modal, w którym wypełnia
-                    dane odbiorcy adresu email, tytuł oraz treść maila. Klika wyślij po czym ten mail dodaje się do bazy
-                    mailiUżytkownik klika plusik (w menu po lewej) wyskakuje modal, w którym wypełnia
-                    dane odbiorcy adresu email, tytuł oraz treść maila. Klika wyślij po czym ten mail dodaje się do bazy
-                    maili</p>
+                <p className={'title'}>{title}</p>
+                <p className={'content'}>{content}</p>
             </div>
         </div>
     );
