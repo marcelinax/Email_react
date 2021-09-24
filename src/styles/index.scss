@@ -409,6 +409,16 @@
       display: flex;
       flex-direction: column;
       width: 100%;
+      position: relative;
+
+      .error-message {
+        position: absolute;
+        font-size: 11px;
+        color: red;
+        font-weight: 500;
+        top: 9%;
+        left: 2rem;
+      }
 
       input, textarea {
         width: calc(100% - 4rem);

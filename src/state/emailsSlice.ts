@@ -5,6 +5,7 @@ import Email from "../types/Email";
 interface EmailsState {
     emails: Email[];
     currentEmail: Email | null;
+    emailError: string;
 }
 
 const saveEmailsInLocalStorage = (state: Email[]): void => {
@@ -18,6 +19,7 @@ const loadEmailsFromLocalStorage = (): Email[] => {
 const initialState: EmailsState = {
     emails: loadEmailsFromLocalStorage(),
     currentEmail: null,
+    emailError: ''
 };
 
 export const emailsSlice = createSlice({
@@ -25,8 +27,14 @@ export const emailsSlice = createSlice({
     initialState: initialState,
     reducers: {
         sendEmailMessage: (state, action: PayloadAction<Email>) => {
-            state.emails = [...state.emails, action.payload];
-            saveEmailsInLocalStorage(state.emails);
+            const {recipientEmail} = action.payload;
+            if (state.emails.map(email => email.recipientEmail).includes(recipientEmail)) {
+                state.emails = [...state.emails, action.payload];
+                saveEmailsInLocalStorage(state.emails);
+            } else {
+                state.emailError = `This email doesn't exist!`;
+            }
+
 
         }
     }

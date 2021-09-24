@@ -1,4 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {sendEmailMessage} from "../state/emailsSlice";
+import {RootState} from "../store";
 
 interface Props {
     setShowSendMessageModal: (param: boolean) => void;
@@ -9,6 +12,31 @@ const EmailSendMessageModal: React.FC<Props> = ({setShowSendMessageModal}) => {
     const [recipientEmail, setRecipientEmail] = useState<string>('');
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const loggedUser = useSelector((state: RootState) => state.users.loggedUser);
+    const emailError = useSelector((state: RootState) => state.emails.emailError);
+    const dispatch = useDispatch();
+
+
+    const sendNewMessage = (): void => {
+        if (recipientEmail === '') {
+            setErrorMessage(`Enter a recipient's email!`);
+            return;
+        }
+        if (emailError !== '') {
+            setErrorMessage(emailError);
+            return;
+        } else {
+            dispatch(sendEmailMessage({
+                senderEmail: loggedUser !== null ? loggedUser.email : '',
+                recipientEmail,
+                content,
+                title
+            }));
+        }
+      
+
+    };
 
 
     const handleRecipientEmailInput = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -29,13 +57,15 @@ const EmailSendMessageModal: React.FC<Props> = ({setShowSendMessageModal}) => {
                     <p>New message</p>
                 </div>
                 <div className={'email-send-message-modal-box-inputs'}>
+                    {errorMessage ? <p className={'error-message'}>{errorMessage}</p> : <></>}
                     <input placeholder={`Recipient's email`} value={recipientEmail}
                            onChange={handleRecipientEmailInput}/>
+
                     <input placeholder={`Title`} value={title} onChange={handleTitleInput}/>
                     <textarea placeholder={`Message...`} value={content} onChange={handleContentInput}/>
                 </div>
                 <div className={'email-send-message-modal-box-bottom'}>
-                    <button>Send</button>
+                    <button onClick={sendNewMessage}>Send</button>
                 </div>
             </div>
         </div>

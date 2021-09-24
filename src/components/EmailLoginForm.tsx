@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useDispatch} from "react-redux";
-import {loginUser} from "../state/userSlice";
+import {loginUser} from "../state/usersSlice";
 
 const EmailLoginForm: React.FC = () => {
 

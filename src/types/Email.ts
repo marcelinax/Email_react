@@ -1,6 +1,6 @@
 export default interface Email {
     senderEmail: string,
     recipientEmail: string,
-    tile: string,
+    title: string,
     content: string
 }

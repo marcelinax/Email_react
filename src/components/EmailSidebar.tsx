@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {logoutUser} from "../state/userSlice";
+import {logoutUser} from "../state/usersSlice";
+
 
 interface Props {
     avatarUrl: string;
