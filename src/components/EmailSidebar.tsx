@@ -1,5 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
+import {changeEmailsListType} from "../state/emailsSlice";
 import {logoutUser} from "../state/usersSlice";
 
 
@@ -24,7 +25,7 @@ const EmailSidebar: React.FC<Props> = ({email, avatarUrl, setShowSendMessageModa
                 </div>
             </div>
             <div className={'email-sidebar-buttons-box'}>
-                <button>
+                <button onClick={() => dispatch(changeEmailsListType('incoming'))}>
                     <i className="bx bx-envelope"/>
                     <p>Inbox</p>
                     <div className={'inbox-amount-box'}>
@@ -37,7 +38,7 @@ const EmailSidebar: React.FC<Props> = ({email, avatarUrl, setShowSendMessageModa
                     <i className="bx bx-pencil"/>
                     <p>New message</p>
                 </button>
-                <button>
+                <button onClick={() => dispatch(changeEmailsListType('sending'))}>
                     <i className="bx bx-send"/>
                     <p>Send</p>
                 </button>

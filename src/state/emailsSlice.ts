@@ -5,6 +5,7 @@ import Email from "../types/Email";
 interface EmailsState {
     emails: Email[];
     currentEmail: Email | null;
+    emailsListType: string;
 
 }
 
@@ -18,7 +19,8 @@ const loadEmailsFromLocalStorage = (): Email[] => {
 
 const initialState: EmailsState = {
     emails: loadEmailsFromLocalStorage(),
-    currentEmail: null
+    currentEmail: null,
+    emailsListType: 'incoming'
 
 };
 
@@ -34,8 +36,12 @@ export const emailsSlice = createSlice({
         },
         setCurrentEmail: (state, action: PayloadAction<Email>) => {
             state.currentEmail = action.payload;
+        },
+        changeEmailsListType: (state, action: PayloadAction<string>) => {
+            state.emailsListType = action.payload;
         }
+
     }
 });
-export const {sendEmailMessage, setCurrentEmail} = emailsSlice.actions;
+export const {sendEmailMessage, setCurrentEmail, changeEmailsListType} = emailsSlice.actions;
 export default emailsSlice.reducer;
