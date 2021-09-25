@@ -1,6 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {RootState} from "../store";
+import EmailMomentFromNow from "./EmailMomementFromNow";
 
 const EmailMessage: React.FC = () => {
 
@@ -28,7 +29,7 @@ const EmailMessage: React.FC = () => {
                     <div className={'email-message-current-email-top'}>
                         <div className={'email-message-current-email-top-time-box'}>
                             <i className="bx bx-time-five"/>
-                            <p>{}</p>
+                            <p><EmailMomentFromNow date={currentEmail.date}/></p>
                         </div>
                         <div className={'email-message-current-email-top-buttons'}>
                             <button><i className="bx bx-share"/></button>

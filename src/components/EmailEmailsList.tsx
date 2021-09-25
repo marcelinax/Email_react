@@ -11,6 +11,7 @@ const EmailEmailsList: React.FC = () => {
     const emails = useSelector((state: RootState) => state.emails.emails);
     const users = useSelector((state: RootState) => state.users.users);
     const emailsListType = useSelector((state: RootState) => state.emails.emailsListType);
+    const currentEmail = useSelector((state: RootState) => state.emails.currentEmail);
     const dispatch = useDispatch();
 
     const loggedUser = useSelector((state: RootState) => state.users.loggedUser);
@@ -38,7 +39,8 @@ const EmailEmailsList: React.FC = () => {
             <EmailEmailsListItem senderEmail={email.senderEmail}
                                  content={email.content} title={email.title}
                                  avatarUrl={users.filter(user => user.email === email.senderEmail)[0].avatarUrl}
-                                 onClick={() => dispatch(setCurrentEmail(email))}/>
+                                 onClick={() => dispatch(setCurrentEmail(email))} date={email.date}
+                                 isCurrentEmail={currentEmail === email}/>
         )) : <></>;
     };
 
@@ -48,7 +50,8 @@ const EmailEmailsList: React.FC = () => {
             <EmailEmailsListItem senderEmail={loggedUser !== null ? loggedUser.email : ''}
                                  content={email.content} title={email.title}
                                  avatarUrl={loggedUser !== null ? loggedUser.avatarUrl : ''}
-                                 onClick={() => dispatch(setCurrentEmail(email))}/>
+                                 onClick={() => dispatch(setCurrentEmail(email))} date={email.date}
+                                 isCurrentEmail={currentEmail === email}/>
         )) : <></>;
     };
 
@@ -60,7 +63,7 @@ const EmailEmailsList: React.FC = () => {
             </div>
             <div className={'email-emails-list-box'}>
                 {emailsListType === 'incoming' ? renderEmails() : emailsListType === 'sending' ? renderSendEmails() : []}
-             
+
             </div>
         </div>
     );

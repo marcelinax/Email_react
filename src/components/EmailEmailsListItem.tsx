@@ -1,4 +1,5 @@
 import React from 'react';
+import EmailMomentFromNow from "./EmailMomementFromNow";
 
 interface Props {
     senderEmail: string;
@@ -6,17 +7,30 @@ interface Props {
     content: string;
     avatarUrl: string;
     onClick: () => void;
+    date: Date;
+    isCurrentEmail: boolean;
 }
 
-const EmailEmailsListItem: React.FC<Props> = ({senderEmail, content, title, avatarUrl, onClick}) => {
+const EmailEmailsListItem: React.FC<Props> = ({
+                                                  senderEmail,
+                                                  content,
+                                                  title,
+                                                  avatarUrl,
+                                                  onClick,
+                                                  date,
+                                                  isCurrentEmail
+                                              }) => {
+
+
     return (
-        <div className={'email-emails-list-item'} onClick={onClick}>
+        <div className={`email-emails-list-item ${isCurrentEmail ? 'email-emails-list-item--active' : ''}`}
+             onClick={onClick}>
             <div className={'email-emails-list-item-user-avatar'}
                  style={{backgroundImage: `url(${avatarUrl})`}}/>
             <div className={'email-emails-list-item-info-box'}>
                 <div className={'time-box'}>
                     <i className="bx bx-time-five"/>
-                    <p>5min</p>
+                    <p><EmailMomentFromNow date={date}/></p>
                 </div>
                 <h4>{senderEmail}</h4>
 

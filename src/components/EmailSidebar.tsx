@@ -1,7 +1,8 @@
 import React from 'react';
-import {useDispatch} from "react-redux";
-import {changeEmailsListType} from "../state/emailsSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {changeEmailsListType, setCurrentEmail} from "../state/emailsSlice";
 import {logoutUser} from "../state/usersSlice";
+import {RootState} from "../store";
 
 
 interface Props {
@@ -14,6 +15,15 @@ interface Props {
 const EmailSidebar: React.FC<Props> = ({email, avatarUrl, setShowSendMessageModal}) => {
 
     const dispatch = useDispatch();
+    const emails = useSelector((state: RootState) => state.emails.emails);
+    const loggedUser = useSelector((state: RootState) => state.users.loggedUser);
+
+
+    const getAmountOfIncomingEmails = (): number => {
+        if (emails.length > 0 && loggedUser !== null) {
+            return emails.filter(email => email.recipientEmail === loggedUser.email).length;
+        } else return 0;
+    };
 
 
     return (
@@ -29,7 +39,7 @@ const EmailSidebar: React.FC<Props> = ({email, avatarUrl, setShowSendMessageModa
                     <i className="bx bx-envelope"/>
                     <p>Inbox</p>
                     <div className={'inbox-amount-box'}>
-                        <p>12</p>
+                        <p>{getAmountOfIncomingEmails()}</p>
                     </div>
                 </button>
                 <button onClick={() => {
@@ -45,7 +55,11 @@ const EmailSidebar: React.FC<Props> = ({email, avatarUrl, setShowSendMessageModa
 
             </div>
             <div className={'email-sidebar-logout-box'}>
-                <button onClick={() => dispatch(logoutUser())}><i className="bx bx-power-off"/>
+                <button onClick={() => {
+                    dispatch(logoutUser());
+                    dispatch(setCurrentEmail(null));
+                    dispatch(changeEmailsListType('incoming'));
+                }}><i className="bx bx-power-off"/>
                     <p>Logout</p>
                 </button>
             </div>

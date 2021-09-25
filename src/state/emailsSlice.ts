@@ -29,12 +29,13 @@ export const emailsSlice = createSlice({
     initialState: initialState,
     reducers: {
         sendEmailMessage: (state, action: PayloadAction<Email>) => {
-            state.emails = [...state.emails, action.payload];
+
+            state.emails = [action.payload, ...state.emails];
             saveEmailsInLocalStorage(state.emails);
 
 
         },
-        setCurrentEmail: (state, action: PayloadAction<Email>) => {
+        setCurrentEmail: (state, action: PayloadAction<Email | null>) => {
             state.currentEmail = action.payload;
         },
         changeEmailsListType: (state, action: PayloadAction<string>) => {

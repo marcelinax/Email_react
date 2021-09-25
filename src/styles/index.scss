@@ -259,7 +259,8 @@
   }
 }
 
-.email-emails-list-item {
+
+.email-emails-list-item, .email-emails-list-item--active {
   width: 100%;
   max-height: 120px;
   min-height: 120px;
@@ -268,6 +269,13 @@
   position: relative;
   cursor: pointer;
 
+  &--active {
+    box-shadow: 0 0 15px rgba(#000, 0.2);
+
+    background-color: #FFFF;
+    border-right: 5px solid #EEBDA7;
+    width: calc(100% - 5px);
+  }
 
   &-user-avatar {
     margin-left: 2rem;
@@ -557,6 +565,23 @@
       margin-top: 3rem;
       display: flex;
       flex-direction: column;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 7px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #F2F4F5;
+        border-radius: 20px;
+
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #B1B1B3;
+        border-radius: 20px;
+
+      }
 
       h3 {
         font-weight: 600;

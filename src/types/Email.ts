@@ -3,5 +3,6 @@ export default interface Email {
     recipientEmail: string,
     title: string,
     content: string,
+    date: Date;
 
 }

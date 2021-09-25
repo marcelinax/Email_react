@@ -32,7 +32,8 @@ const EmailSendMessageModal: React.FC<Props> = ({setShowSendMessageModal}) => {
                 senderEmail: loggedUser !== null ? loggedUser.email : '',
                 recipientEmail,
                 content,
-                title
+                title,
+                date: new Date(),
             }));
             setShowSendMessageModal(false);
         }
